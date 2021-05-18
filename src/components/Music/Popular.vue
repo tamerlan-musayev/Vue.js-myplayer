@@ -4,14 +4,18 @@
       :video-id="videos2[index]"
       ref="youtube"
       @playing="playing"
+      @ended="playerReady"
       id="iframe"
+      allow="autoplay"
     ></youtube>
-    <button @click="playAudio">play</button>
+    <button @click="playMyMusic">play</button>
     <button @click="pauseVideo">stop</button>
-    <button @click="nextMusic">Next</button>
+    <button @click="nextMusic()">
+      Next
+    </button>
     <button @click="previousMusic">Previous</button>
     <h4>{{ title }}</h4>
-    <h5>videos {{ `${this.index + 1}/ ${this.videos2.length}` }}</h5>
+    <h5>Audio {{ `${this.index + 1}/ ${this.videos2.length}` }}</h5>
   </div>
 </template>
 <script>
@@ -131,15 +135,6 @@ export default {
     },
   },
   methods: {
-    playAudio() {
-      this.player.playVideo();
-    },
-    pauseVideo() {
-      this.player.pauseVideo();
-    },
-    playing() {
-      console.log(" we are watching!!!");
-    },
     fetchTitle() {
       fetch(
         "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" +
@@ -152,13 +147,29 @@ export default {
           this.title = data.title;
         });
     },
+    playerReady() {
+      this.player.playVideo();
+      this.index++;
+      this.fetchTitle();
+    },
+    playMyMusic() {
+      this.player.playVideo();
+    },
+    pauseVideo() {
+      this.player.pauseVideo();
+    },
+    playing() {
+      this.player.playVideo();
+    },
     nextMusic() {
       if (this.index >= this.videos2.length - 1) {
         return (this.index = this.videos2.length - 1);
       } else {
         this.index = this.index + 1;
-        console.log(this.index);
         this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
       }
     },
     previousMusic() {
@@ -167,6 +178,10 @@ export default {
       } else {
         this.index = this.index - 1;
         this.fetchTitle();
+        this.playMyMusic();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
       }
     },
   },
