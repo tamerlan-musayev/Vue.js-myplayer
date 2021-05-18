@@ -9,7 +9,21 @@ const routes = [
   },
   {
     path: "/music",
-    component: () => import("../components/Music.vue"),
+    component: () => import("../components/Music/Music.vue"),
+    children: [
+      {
+        path: "popular",
+        component: () => import("../components/Music/Popular.vue"),
+      },
+      {
+        path: "categories",
+        component: () => import("../components/Music/Categories.vue"),
+      },
+      {
+        path: "saved",
+        component: () => import("../components/Music/Saved.vue"),
+      },
+    ],
   },
   {
     path: "/video",
