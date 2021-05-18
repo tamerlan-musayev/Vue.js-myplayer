@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/music">Music</router-link>
+    <router-link to="/music/popular">Music</router-link>
     <router-link to="/video">Videos</router-link>
     <router-link to="/photos">Inspiration Photos</router-link>
     <router-link to="/clock">Clock</router-link>
