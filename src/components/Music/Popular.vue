@@ -24,7 +24,6 @@ export default {
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=SlPhMPnQ58k",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=tQ0yjYUFKAE",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=k2qgadSvNyU",
-        "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=k2qgadSvNyU",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=TdyllLZeviY",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=aZla1ttZHaw",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=izIyhdEHSPo",
@@ -120,6 +119,8 @@ export default {
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=A9hcJgtnm6Q",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=WXBHCQYxwr0",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=SJOgTMP8cs4",
+        "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=DGzy8FE1Rhk",
+        "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=M4ZoCHID9GI",
       ],
       videos2: [],
     };
