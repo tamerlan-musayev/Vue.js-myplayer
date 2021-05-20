@@ -301,6 +301,7 @@ export default {
         font-weight: bold;
         margin-bottom: 8px;
         font-size: 18px;
+        text-shadow: 0.5px 0.5px 0.5px black;
       }
       h5 {
         margin-top: 6px;
@@ -330,10 +331,10 @@ export default {
 }
 @media screen and (max-width: 650px) {
   #container {
-    padding: 8px;
+    padding: 3px;
   }
   #text-controllers {
-    margin-left: 5px;
+    margin-left: 3px;
   }
 }
 </style>
