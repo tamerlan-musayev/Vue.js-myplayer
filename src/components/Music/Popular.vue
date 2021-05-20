@@ -1,6 +1,5 @@
 <template>
   <div id="all">
-    <div id="music_menu" @click="backToMenu">Music Menu</div>
     <div id="container">
       <youtube
         :video-id="$store.state.videos2[index]"
@@ -10,60 +9,106 @@
         class="iframe"
         allow="autoplay"
       ></youtube>
-      <button @click="previousMusic">Previous</button>
-      <button @click="playMyMusic" id="play">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-          />
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      </button>
-      <button @click="pauseVideo" id="pause">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
-          />
-        </svg>
-      </button>
-      <button @click="nextMusic">
-        Next
-      </button>
-      <button @click="randomMusic">{{ isRandomText }}</button>
-      <button @click="loopMusic">{{ isLoopText }}</button>
-      <h4>{{ title }}</h4>
-      <h5>
-        Audio {{ `${this.index + 1}/ ${this.$store.state.videos2.length}` }}
-      </h5>
+      <div id="text-controllers">
+        <div id="controller">
+          <button @click="previousMusic">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-skip-backward-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5z"
+              />
+            </svg>
+          </button>
+          <button @click="playMyMusic" id="play" v-if="!isPlay">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-play-circle-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"
+              />
+            </svg>
+          </button>
+          <button @click="pauseVideo" id="pause" v-if="isPlay">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-stop-circle-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.5 5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3z"
+              />
+            </svg>
+          </button>
+          <button @click="nextMusic">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-skip-forward-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5z"
+              />
+            </svg>
+          </button>
+          <button @click="randomMusic" :class="{ isActive: isRandom }">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-shuffle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"
+              />
+              <path
+                d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"
+              />
+            </svg>
+          </button>
+          <button @click="loopMusic" :class="{ isActive: isLoop }">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-repeat"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+              />
+            </svg>
+          </button>
+        </div>
+        <h4>{{ title }}</h4>
+        <h5>
+          Audio: {{ `${this.index + 1}/ ${this.$store.state.videos2.length}` }}
+        </h5>
+      </div>
     </div>
   </div>
 </template>
@@ -76,6 +121,7 @@ export default {
       index: 0,
       randomText: "",
       isLoop: false,
+      isPlay: false,
       videos: [
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=SlPhMPnQ58k",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=tQ0yjYUFKAE",
@@ -222,6 +268,7 @@ export default {
         });
     },
     playMyMusic() {
+      this.isPlay = true;
       this.player.playVideo();
     },
     loopMusic() {
@@ -257,6 +304,7 @@ export default {
     },
     pauseVideo() {
       this.player.pauseVideo();
+      this.isPlay = false;
     },
     playing() {
       this.player.playVideo();
@@ -329,7 +377,6 @@ export default {
   },
   mounted() {
     this.fetchTitle();
-    this.player.playVideo();
   },
 };
 </script>
@@ -357,7 +404,25 @@ export default {
     text-decoration: underline;
   }
 }
-button {
-  border: 2px solid gray;
+svg {
+  height: 40px;
+  width: auto;
+  padding-left: 5px;
+  &:hover {
+    color: rgb(8, 255, 234);
+  }
+}
+.isActive {
+  color: rgb(4, 226, 255);
+}
+h4 {
+  font-weight: bold;
+}
+#text-controllers {
+  min-width: 600px;
+  text-align: center;
+}
+#controller {
+  text-align: center;
 }
 </style>

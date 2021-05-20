@@ -7,7 +7,6 @@ Vue.use(VueYoutube);
 import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(axios, VueAxios);
-
 Vue.config.productionTip = false;
 
 new Vue({

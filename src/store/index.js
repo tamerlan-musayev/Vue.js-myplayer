@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    savedArray: ["tQ0yjYUFKAE", "ZMmwDy-27AM"],
     videos2: [],
   },
   mutations: {},
