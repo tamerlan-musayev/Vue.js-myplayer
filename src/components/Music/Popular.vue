@@ -2,7 +2,7 @@
   <div id="all">
     <div id="container">
       <youtube
-        :video-id="$store.state.videos2[index]"
+        :video-id="videos2[index]"
         ref="youtube"
         @ended="playerReady"
         class="iframe"
@@ -12,85 +12,23 @@
         <h4>{{ title }}</h4>
         <div id="controller">
           <button @click="previousMusic">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              class="bi bi-skip-backward-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5z"
-              />
-            </svg>
+            <b-icon-skip-backward-fill></b-icon-skip-backward-fill>
           </button>
           <button @click="playMyMusic" id="play" v-if="!isPlay">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              class="bi bi-play-circle-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"
-              />
-            </svg>
+            <b-icon-play-circle-fill></b-icon-play-circle-fill>
           </button>
           <button @click="pauseVideo" id="pause" v-if="isPlay">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              class="bi bi-stop-circle-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.5 5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3z"
-              />
-            </svg>
+            <b-icon-stop-circle-fill></b-icon-stop-circle-fill>
           </button>
           <button @click="nextMusic">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              class="bi bi-skip-forward-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5z"
-              />
-            </svg>
+            <b-icon-skip-forward-fill></b-icon-skip-forward-fill>
           </button>
           <div id="controller-2">
             <button @click="randomMusic" :class="{ isActive: isRandom }">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                class="bi bi-shuffle"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"
-                />
-                <path
-                  d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"
-                />
-              </svg>
+              <b-icon-shuffle></b-icon-shuffle>
             </button>
             <button @click="loopMusic" :class="{ isActive: isLoop }">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                class="bi bi-arrow-repeat"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
-                />
-              </svg>
+              <b-icon-arrow-repeat></b-icon-arrow-repeat>
             </button>
           </div>
         </div>
@@ -217,14 +155,14 @@ export default {
       return this.$refs.youtube.player;
     },
     audioIndex() {
-      return this.index + 1 + "/" + this.$store.state.videos2.length;
+      return this.index + 1 + "/" + this.videos2.length;
     },
   },
   methods: {
     fetchTitle() {
       fetch(
         "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" +
-          this.$store.state.videos2[this.index]
+          this.videos2[this.index]
       )
         .then((response) => {
           return response.json();
@@ -251,6 +189,15 @@ export default {
         this.playMyMusic();
       }, 1);
     },
+    playerReady() {
+      if (this.isRandom) {
+        this.randomOperation();
+      } else if (this.isLoop === true) {
+        this.loopMusic();
+      } else {
+        this.randomOperation();
+      }
+    },
     loopMusic() {
       this.isLoop = !this.isLoop;
       if (this.isLoop === true) {
@@ -262,21 +209,12 @@ export default {
         }, 1);
       }
     },
-    playerReady() {
-      if (this.isRandom) {
-        this.randomOperation();
-      } else if (this.isLoop === true) {
-        this.loopMusic();
-      } else {
-        this.randomOperation();
-      }
-    },
     pauseVideo() {
       this.player.pauseVideo();
       this.isPlay = false;
     },
     nextMusic() {
-      if (this.index >= this.$store.state.videos2.length - 1) {
+      if (this.index >= this.videos2.length - 1) {
         this.index = 0;
         this.fetchTitle();
         setTimeout(() => {
@@ -294,7 +232,7 @@ export default {
     },
     previousMusic() {
       if (this.index <= 0) {
-        this.index = this.$store.state.videos2.length - 1;
+        this.index = this.videos2.length - 1;
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
@@ -317,9 +255,9 @@ export default {
     },
   },
   created() {
-    this.$store.state.videos2 = [];
+    this.videos2 = [];
     this.videos.forEach((element) => {
-      this.$store.state.videos2.push(element.slice(72));
+      this.videos2.push(element.slice(72));
     });
   },
   mounted() {
