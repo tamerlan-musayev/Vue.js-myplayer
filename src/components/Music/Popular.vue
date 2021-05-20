@@ -190,9 +190,9 @@ export default {
       }, 1);
     },
     playerReady() {
-      if (this.isRandom) {
+      if (this.isRandom && this.isRandom === true) {
         this.randomOperation();
-      } else if (this.isLoop === true) {
+      } else if (this.isLoop && this.isLoop === true) {
         this.loopMusic();
       } else {
         this.randomOperation();
@@ -203,6 +203,12 @@ export default {
       if (this.isLoop === true) {
         this.isRandom = false;
         this.index = this.index + 0;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
+      } else {
+        this.isLoop = true;
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
@@ -272,6 +278,18 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   color: white;
+  @media screen and (max-width: 1000px) {
+    background-position-x: -100px;
+  }
+  @media screen and (max-width: 800px) {
+    background-position-x: -200px;
+  }
+  @media screen and (max-width: 650px) {
+    background-position-x: -250px;
+  }
+  @media screen and (max-width: 400px) {
+    background-position-x: -380px;
+  }
   #container {
     position: absolute;
     bottom: 0;
