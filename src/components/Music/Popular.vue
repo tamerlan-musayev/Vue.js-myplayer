@@ -4,18 +4,16 @@
       <youtube
         :video-id="$store.state.videos2[index]"
         ref="youtube"
-        @playing="playing"
         @ended="playerReady"
         class="iframe"
         allow="autoplay"
       ></youtube>
       <div id="text-controllers">
+        <h4>{{ title }}</h4>
         <div id="controller">
           <button @click="previousMusic">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
               fill="currentColor"
               class="bi bi-skip-backward-fill"
               viewBox="0 0 16 16"
@@ -28,8 +26,6 @@
           <button @click="playMyMusic" id="play" v-if="!isPlay">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
               fill="currentColor"
               class="bi bi-play-circle-fill"
               viewBox="0 0 16 16"
@@ -42,8 +38,6 @@
           <button @click="pauseVideo" id="pause" v-if="isPlay">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
               fill="currentColor"
               class="bi bi-stop-circle-fill"
               viewBox="0 0 16 16"
@@ -56,8 +50,6 @@
           <button @click="nextMusic">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
               fill="currentColor"
               class="bi bi-skip-forward-fill"
               viewBox="0 0 16 16"
@@ -67,47 +59,42 @@
               />
             </svg>
           </button>
-          <button @click="randomMusic" :class="{ isActive: isRandom }">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-shuffle"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"
-              />
-              <path
-                d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"
-              />
-            </svg>
-          </button>
-          <button @click="loopMusic" :class="{ isActive: isLoop }">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-arrow-repeat"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
-              />
-            </svg>
-          </button>
+          <div id="controller-2">
+            <button @click="randomMusic" :class="{ isActive: isRandom }">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                class="bi bi-shuffle"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"
+                />
+              </svg>
+            </button>
+            <button @click="loopMusic" :class="{ isActive: isLoop }">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                class="bi bi-arrow-repeat"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-        <h4>{{ title }}</h4>
-        <h5>
-          Audio: {{ `${this.index + 1}/ ${this.$store.state.videos2.length}` }}
-        </h5>
+        <h5>Audio: {{ audioIndex }}</h5>
       </div>
     </div>
   </div>
@@ -119,7 +106,6 @@ export default {
       title: "",
       isRandom: false,
       index: 0,
-      randomText: "",
       isLoop: false,
       isPlay: false,
       videos: [
@@ -230,25 +216,11 @@ export default {
     player() {
       return this.$refs.youtube.player;
     },
-    isRandomText() {
-      if (this.isRandom === false) {
-        return "Set Random Music";
-      } else {
-        return "Clear Random Music";
-      }
-    },
-    isLoopText() {
-      if (this.isLoop === false) {
-        return "Start looping";
-      } else {
-        return "Stop looping";
-      }
+    audioIndex() {
+      return this.index + 1 + "/" + this.$store.state.videos2.length;
     },
   },
   methods: {
-    backToMenu() {
-      this.$router.push("/music");
-    },
     fetchTitle() {
       fetch(
         "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" +
@@ -271,6 +243,14 @@ export default {
       this.isPlay = true;
       this.player.playVideo();
     },
+    randomOperation() {
+      let randomNumber = Math.floor(Math.random() * 100);
+      this.index = randomNumber;
+      this.fetchTitle();
+      setTimeout(() => {
+        this.playMyMusic();
+      }, 1);
+    },
     loopMusic() {
       this.isLoop = !this.isLoop;
       if (this.isLoop === true) {
@@ -284,30 +264,16 @@ export default {
     },
     playerReady() {
       if (this.isRandom) {
-        let randomNumber = Math.floor(Math.random() * 100);
-        this.index = randomNumber;
-        this.fetchTitle();
-        setTimeout(() => {
-          this.playMyMusic();
-        }, 1);
-      } else if (this.isLoop) {
-        this.index = this.index + 0;
-        this.fetchTitle();
-        setTimeout(() => {
-          this.playMyMusic();
-        }, 1);
+        this.randomOperation();
+      } else if (this.isLoop === true) {
+        this.loopMusic();
       } else {
-        this.playMyMusic();
-        this.index++;
-        this.fetchTitle();
+        this.randomOperation();
       }
     },
     pauseVideo() {
       this.player.pauseVideo();
       this.isPlay = false;
-    },
-    playing() {
-      this.player.playVideo();
     },
     nextMusic() {
       if (this.index >= this.$store.state.videos2.length - 1) {
@@ -316,17 +282,8 @@ export default {
         setTimeout(() => {
           this.playMyMusic();
         }, 1);
-      } else if (this.index === 101) {
-        for (let i = 0; i < 10; i++) {
-          console.log("FUCK YOU");
-        }
       } else if (this.isRandom === true) {
-        let randomNumber = Math.floor(Math.random() * 100);
-        this.index = randomNumber;
-        this.fetchTitle();
-        setTimeout(() => {
-          this.playMyMusic();
-        }, 1);
+        this.randomOperation();
       } else {
         this.index = this.index + 1;
         this.fetchTitle();
@@ -343,12 +300,7 @@ export default {
           this.playMyMusic();
         }, 1);
       } else if (this.isRandom === true) {
-        let randomNumber = Math.floor(Math.random() * 100);
-        this.index = randomNumber;
-        this.fetchTitle();
-        setTimeout(() => {
-          this.playMyMusic();
-        }, 1);
+        this.randomOperation();
       } else {
         this.index = this.index - 1;
         this.fetchTitle();
@@ -359,13 +311,8 @@ export default {
     },
     randomMusic() {
       this.isRandom = !this.isRandom;
-      if (this.isRandom) {
-        let randomNumber = Math.floor(Math.random() * 100);
-        this.index = randomNumber;
-        this.fetchTitle();
-        setTimeout(() => {
-          this.playMyMusic();
-        }, 1);
+      if (this.isRandom === true) {
+        this.randomOperation();
       }
     },
   },
@@ -391,38 +338,38 @@ export default {
     position: absolute;
     bottom: 0;
     padding: 20px;
+    #text-controllers {
+      margin-left: 20px;
+      margin-bottom: 8px;
+      h4 {
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+      h5 {
+        margin-top: 6px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #play,
+      #pause {
+        margin: 0px 8px;
+      }
+      svg {
+        height: 40px;
+        width: auto;
+        padding-left: 5px;
+        &:hover {
+          color: rgb(8, 255, 234);
+        }
+      }
+    }
   }
 }
 .iframe {
   display: none !important;
 }
-#music_menu {
-  color: snow;
-  cursor: pointer;
-  padding: 16px 0px 0px 16px;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-svg {
-  height: 40px;
-  width: auto;
-  padding-left: 5px;
-  &:hover {
-    color: rgb(8, 255, 234);
-  }
-}
 .isActive {
   color: rgb(4, 226, 255);
-}
-h4 {
-  font-weight: bold;
-}
-#text-controllers {
-  min-width: 600px;
-  text-align: center;
-}
-#controller {
-  text-align: center;
 }
 </style>
