@@ -333,8 +333,8 @@ export default {
   #container {
     padding: 3px;
   }
-  #text-controllers {
-    margin-left: 3px;
+  #all #container #text-controllers {
+    margin-left: 3px !important;
   }
 }
 </style>
