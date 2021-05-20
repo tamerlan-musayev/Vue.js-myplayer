@@ -328,4 +328,12 @@ export default {
 .isActive {
   color: rgb(4, 226, 255);
 }
+@media screen and (max-width: 650px) {
+  #container {
+    padding: 8px;
+  }
+  #text-controllers {
+    margin-left: 5px;
+  }
+}
 </style>
