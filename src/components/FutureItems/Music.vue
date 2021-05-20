@@ -7,7 +7,6 @@
       <div><router-link to="/music/categories">Categories</router-link></div>
       <div><router-link to="/music/saved">Saved</router-link></div>
     </section>
-    <router-view></router-view>
   </main>
 </template>
 <style lang="scss" scoped>

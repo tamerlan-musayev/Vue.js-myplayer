@@ -1,21 +1,70 @@
 <template>
-  <div>
-    <youtube
-      :video-id="videos2[index]"
-      ref="youtube"
-      @playing="playing"
-      @ended="playerReady"
-      id="iframe"
-      allow="autoplay"
-    ></youtube>
-    <button @click="playMyMusic">play</button>
-    <button @click="pauseVideo">stop</button>
-    <button @click="nextMusic()">
-      Next
-    </button>
-    <button @click="previousMusic">Previous</button>
-    <h4>{{ title }}</h4>
-    <h5>Audio {{ `${this.index + 1}/ ${this.videos2.length}` }}</h5>
+  <div id="all">
+    <div id="music_menu" @click="backToMenu">Music Menu</div>
+    <div id="container">
+      <youtube
+        :video-id="$store.state.videos2[index]"
+        ref="youtube"
+        @playing="playing"
+        @ended="playerReady"
+        class="iframe"
+        allow="autoplay"
+      ></youtube>
+      <button @click="previousMusic">Previous</button>
+      <button @click="playMyMusic" id="play">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </button>
+      <button @click="pauseVideo" id="pause">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
+          />
+        </svg>
+      </button>
+      <button @click="nextMusic">
+        Next
+      </button>
+      <button @click="randomMusic">{{ isRandomText }}</button>
+      <button @click="loopMusic">{{ isLoopText }}</button>
+      <h4>{{ title }}</h4>
+      <h5>
+        Audio {{ `${this.index + 1}/ ${this.$store.state.videos2.length}` }}
+      </h5>
+    </div>
   </div>
 </template>
 <script>
@@ -23,7 +72,10 @@ export default {
   data() {
     return {
       title: "",
+      isRandom: false,
       index: 0,
+      randomText: "",
+      isLoop: false,
       videos: [
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=SlPhMPnQ58k",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=tQ0yjYUFKAE",
@@ -126,34 +178,82 @@ export default {
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=DGzy8FE1Rhk",
         "https://www.youtube.com/watch?list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10&v=M4ZoCHID9GI",
       ],
-      videos2: [],
     };
   },
   computed: {
     player() {
       return this.$refs.youtube.player;
     },
+    isRandomText() {
+      if (this.isRandom === false) {
+        return "Set Random Music";
+      } else {
+        return "Clear Random Music";
+      }
+    },
+    isLoopText() {
+      if (this.isLoop === false) {
+        return "Start looping";
+      } else {
+        return "Stop looping";
+      }
+    },
   },
   methods: {
+    backToMenu() {
+      this.$router.push("/music");
+    },
     fetchTitle() {
       fetch(
         "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" +
-          this.videos2[this.index]
+          this.$store.state.videos2[this.index]
       )
         .then((response) => {
           return response.json();
         })
         .then((data) => {
+          if (data.title.includes("(")) {
+            data.title = data.title.replace(/ *\([^)]*\) */g, " ");
+          }
+          if (data.title.includes("[")) {
+            data.title = data.title.replace(/\[.+?\]/g, " ");
+          }
           this.title = data.title;
         });
     },
-    playerReady() {
-      this.player.playVideo();
-      this.index++;
-      this.fetchTitle();
-    },
     playMyMusic() {
       this.player.playVideo();
+    },
+    loopMusic() {
+      this.isLoop = !this.isLoop;
+      if (this.isLoop === true) {
+        this.isRandom = false;
+        this.index = this.index + 0;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
+      }
+    },
+    playerReady() {
+      if (this.isRandom) {
+        let randomNumber = Math.floor(Math.random() * 100);
+        this.index = randomNumber;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
+      } else if (this.isLoop) {
+        this.index = this.index + 0;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
+      } else {
+        this.playMyMusic();
+        this.index++;
+        this.fetchTitle();
+      }
     },
     pauseVideo() {
       this.player.pauseVideo();
@@ -162,8 +262,23 @@ export default {
       this.player.playVideo();
     },
     nextMusic() {
-      if (this.index >= this.videos2.length - 1) {
-        return (this.index = this.videos2.length - 1);
+      if (this.index >= this.$store.state.videos2.length - 1) {
+        this.index = 0;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
+      } else if (this.index === 101) {
+        for (let i = 0; i < 10; i++) {
+          console.log("FUCK YOU");
+        }
+      } else if (this.isRandom === true) {
+        let randomNumber = Math.floor(Math.random() * 100);
+        this.index = randomNumber;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
       } else {
         this.index = this.index + 1;
         this.fetchTitle();
@@ -174,11 +289,32 @@ export default {
     },
     previousMusic() {
       if (this.index <= 0) {
-        return (this.index = 0);
+        this.index = this.$store.state.videos2.length - 1;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
+      } else if (this.isRandom === true) {
+        let randomNumber = Math.floor(Math.random() * 100);
+        this.index = randomNumber;
+        this.fetchTitle();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
       } else {
         this.index = this.index - 1;
         this.fetchTitle();
-        this.playMyMusic();
+        setTimeout(() => {
+          this.playMyMusic();
+        }, 1);
+      }
+    },
+    randomMusic() {
+      this.isRandom = !this.isRandom;
+      if (this.isRandom) {
+        let randomNumber = Math.floor(Math.random() * 100);
+        this.index = randomNumber;
+        this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
         }, 1);
@@ -186,18 +322,42 @@ export default {
     },
   },
   created() {
-    for (let i = 0; i < this.videos.length; i++) {
-      let iii = this.videos[i].slice(72);
-      this.videos2.push(iii);
-    }
+    this.$store.state.videos2 = [];
+    this.videos.forEach((element) => {
+      this.$store.state.videos2.push(element.slice(72));
+    });
   },
   mounted() {
     this.fetchTitle();
+    this.player.playVideo();
   },
 };
 </script>
-<style>
-#iframe {
+<style lang="scss">
+#all {
+  background-image: url("https://i.gifer.com/2A5.gif");
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  #container {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+  }
+}
+.iframe {
   display: none !important;
+}
+#music_menu {
+  color: snow;
+  cursor: pointer;
+  padding: 16px 0px 0px 16px;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+button {
+  border: 2px solid gray;
 }
 </style>
