@@ -106,13 +106,13 @@ export default {
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
-        }, 1);
+        }, 1000);
       } else {
         this.isLoop = true;
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
-        }, 1);
+        }, 1000);
       }
     },
     pauseVideo() {
@@ -125,7 +125,7 @@ export default {
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
-        }, 1);
+        }, 1000);
       } else if (this.isRandom === true) {
         this.randomOperation();
       } else {
@@ -133,7 +133,7 @@ export default {
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
-        }, 1);
+        }, 1000);
       }
     },
     previousMusic() {
@@ -142,7 +142,7 @@ export default {
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
-        }, 1);
+        }, 1000);
       } else if (this.isRandom === true) {
         this.randomOperation();
       } else {
@@ -150,7 +150,7 @@ export default {
         this.fetchTitle();
         setTimeout(() => {
           this.playMyMusic();
-        }, 1);
+        }, 1000);
       }
     },
     randomMusic() {
