@@ -231,7 +231,7 @@ export default {
   }
 }
 .iframe {
-  display: none !important;
+  // display: none !important;
 }
 .isActive {
   color: rgb(4, 226, 255);
