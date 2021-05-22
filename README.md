@@ -97,4 +97,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Acknowledgements
 
-- [Trello](http://lofi.cafe/) - inspiration for the project
+- [LofiCafe](http://lofi.cafe/) - inspiration for the project
