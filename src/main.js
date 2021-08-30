@@ -10,6 +10,9 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+// import axios from "axios";
+// import VueAxios from "vue-axios";
+// Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 new Vue({
